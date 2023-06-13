@@ -25,6 +25,7 @@ extern SEXP check_covariance(SEXP);
 extern SEXP chow_liu(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP class_err(SEXP, SEXP);
 extern SEXP classic_discrete_parameters(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP classic_discrete_parameters_sample(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP colliders(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP configurations(SEXP, SEXP, SEXP);
 extern SEXP count_observed_values(SEXP);

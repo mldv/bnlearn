@@ -68,6 +68,7 @@ static const R_CallMethodDef CallEntries[] = {
   CALL_ENTRY(chow_liu, 8),
   CALL_ENTRY(class_err, 2),
   CALL_ENTRY(classic_discrete_parameters, 6),
+  CALL_ENTRY(classic_discrete_parameters_sample, 6),
   CALL_ENTRY(colliders, 6),
   CALL_ENTRY(configurations, 3),
   CALL_ENTRY(count_observed_values, 1),

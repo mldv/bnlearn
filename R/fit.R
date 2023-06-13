@@ -4,7 +4,7 @@ bn.fit.backend = function(x, data, cluster = NULL, method, extra.args,
     data.info, keep.fitted = TRUE, debug = FALSE) {
 
   # define the fitting functions.
-  if (method %in% c("mle", "bayes"))
+  if (method %in% c("mle", "bayes", "bayes-sample"))
     fit = bn.fit.backend.discrete
   else if (method == "mle-g")
     fit = bn.fit.backend.continuous
@@ -52,14 +52,34 @@ bn.fit.backend.discrete = function(dag, node, data, method, extra.args,
 
   # the "method" argument is not used explicity, but if "mle" the imaginary
   # sample size is not defined and thus is read as NULL.
-  cptable =
-    .Call("call_classic_discrete_parameters",
-          data = data,
-          node = node,
-          parents = parents,
-          iss = extra.args$iss,
-          replace.unidentifiable = isTRUE(extra.args$replace.unidentifiable),
-          missing = !all(data.info$complete.nodes[c(node, parents)]))
+  if (method == "bayes-sample") {
+    cptable =
+      .Call("call_classic_discrete_parameters_sample",
+            data = data,
+            node = node,
+            parents = parents,
+            iss = extra.args$iss,
+            replace.unidentifiable = isTRUE(extra.args$replace.unidentifiable),
+            missing = !all(data.info$complete.nodes[c(node, parents)]))
+    # TODO[MDV]: normalize here with rdirichlet
+    if ( length(parents) > 0 ){
+      res = apply(cptable, parents, rdirichlet, n=1)
+      dimnames(res) = dimnames(cptable)
+    } else {
+      res = as.table(as.vector(rdirichlet(n=1, cptable)))
+      dimnames(res) = dimnames(cptable)
+    }
+    cptable = res
+  } else {
+    cptable =
+      .Call("call_classic_discrete_parameters",
+            data = data,
+            node = node,
+            parents = parents,
+            iss = extra.args$iss,
+            replace.unidentifiable = isTRUE(extra.args$replace.unidentifiable),
+            missing = !all(data.info$complete.nodes[c(node, parents)]))
+  }
 
   # this is to preserve the ordering of the factor.
   class = ifelse(ordered.factor, "bn.fit.onode", "bn.fit.dnode")

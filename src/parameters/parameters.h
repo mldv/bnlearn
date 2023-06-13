@@ -18,6 +18,8 @@ typedef struct {
 
 void c_classic_discrete_parameters(int *counts, double *cpt, int nrows,
     int ncols, double alpha, bool replace);
+void c_classic_discrete_parameters_sample(int *counts, double *cpt, int nrows, 
+    int ncols, double alpha, bool replace);
 hdstatus c_hierarchical_dirichlet_parameters(cmcmap counts, double alpha0,
     double s, bool debugging, double *nu);
 

@@ -244,7 +244,7 @@ loss.extra.args = list(
   "logl-cg" = character(0)
 )
 
-available.dbn.fits = c("mle", "bayes", "hdir")
+available.dbn.fits = c("mle", "bayes", "hdir", "bayes-sample")
 available.gbn.fits = c("mle-g")
 available.cgbn.fits = c("mle-cg")
 available.fits = c(available.dbn.fits, available.gbn.fits, available.cgbn.fits)
@@ -262,6 +262,7 @@ fits.extra.args = list(
   "mle-g" = "replace.unidentifiable",
   "mle-cg" = "replace.unidentifiable",
   "bayes" = "iss",
+  "bayes-sample" = "iss",
   "hdir" = c("iss", "alpha0", "group")
 )
 

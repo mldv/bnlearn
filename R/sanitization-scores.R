@@ -144,10 +144,10 @@ check.score.args = function(score, network, data, extra.args, learning = FALSE) 
 # check the imaginary sample size of the Dirichlet prior.
 check.iss = function(iss, network) {
 
-  if (!is.null(iss)) {
+  if (!is.null(iss) | iss==0) {
 
     # validate the imaginary sample size.
-    if (!is.positive(iss))
+    if (!is.positive(iss) | iss==0)
       stop("the imaginary sample size must be a positive number.")
     if (iss < 1)
       warning("very small imaginary sample size, the results may be affected by numeric problems.")
