@@ -143,30 +143,30 @@ check.score.args = function(score, network, data, extra.args, learning = FALSE) 
 
 # check the imaginary sample size of the Dirichlet prior.
 check.iss = function(iss, network) {
-
-  if (!is.null(iss) | iss==0) {
-
+  
+  if (!is.null(iss)) {
+    
     # validate the imaginary sample size.
-    if (!is.positive(iss) | iss==0)
+    if (!is.positive(iss))
       stop("the imaginary sample size must be a positive number.")
     if (iss < 1)
       warning("very small imaginary sample size, the results may be affected by numeric problems.")
-
+    
   }#THEN
   else {
-
+    
     # check whether there is an imaginary sample size stored in the bn object;
     # otherwise use a the de facto standard value of 1.
     if (!is.null(network$learning$args$iss))
       iss = network$learning$args$iss
     else
       iss = 1
-
+    
   }#ELSE
-
+  
   # coerce iss to integer.
   return(as.numeric(iss))
-
+  
 }#CHECK.ISS
 
 # check the prior mean in the BGe score.
